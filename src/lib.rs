@@ -1,14 +1,4 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+mod filters;
+pub use filters::grayscale::grayscale_wasm;
+pub use filters::sepia::sepia_wasm;
+pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;

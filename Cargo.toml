@@ -1,6 +1,14 @@
 [package]
-name = "image-editor"
+name = "image-filter-js-wasm-benchmark"
 version = "0.1.0"
 edition = "2024"
 
+[profile.release]
+opt-level = 3
+lto = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
 [dependencies]
+wasm-bindgen = "0.2"
