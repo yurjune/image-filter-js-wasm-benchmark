@@ -3,19 +3,21 @@
 }
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
   display: flex;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 #sidebar {
   width: 160px;
   background: #f0f0f0;
-  padding: 20px;
+  padding: 16px;
   flex-shrink: 0;
 }
 #sidebar-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -35,6 +37,9 @@ body {
   font-size: 13px;
   font-weight: 500;
   transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 #sidebar button.active {
   background: #2c3e50;
@@ -62,7 +67,7 @@ body {
 }
 #controls .label {
   display: inline-block;
-  width: 50px;
+  width: 60px;
 }
 #button-group {
   padding-bottom: 8px;
