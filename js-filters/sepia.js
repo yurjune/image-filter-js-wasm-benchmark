@@ -5,23 +5,15 @@ function rgbToSepia(r, g, b) {
   return [outputR, outputG, outputB];
 }
 
-function blend(from, to, intensity) {
-  const fromVal = from * (1024 - intensity);
-  const toVal = to * intensity;
-  return (fromVal + toVal) >> 10;
-}
-
-export function sepiaJS(pixels, intensity) {
-  const intensityFixed = ((Math.min(intensity, 100) * 1024) / 100) | 0;
-
+export function sepiaJS(pixels) {
   for (let i = 0; i < pixels.length; i += 4) {
     const [sepiaR, sepiaG, sepiaB] = rgbToSepia(
       pixels[i],
       pixels[i + 1],
       pixels[i + 2],
     );
-    pixels[i] = blend(pixels[i], sepiaR, intensityFixed);
-    pixels[i + 1] = blend(pixels[i + 1], sepiaG, intensityFixed);
-    pixels[i + 2] = blend(pixels[i + 2], sepiaB, intensityFixed);
+    pixels[i] = sepiaR;
+    pixels[i + 1] = sepiaG;
+    pixels[i + 2] = sepiaB;
   }
 }

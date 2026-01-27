@@ -5,19 +5,11 @@ function rgbToLuma(r, g, b) {
   return (rVal + gVal + bVal) >> 10;
 }
 
-function blend(from, to, saturation) {
-  const fromVal = from * saturation;
-  const toVal = to * (1024 - saturation);
-  return (fromVal + toVal) >> 10;
-}
-
-export function grayscaleJS(pixels, intensity) {
-  const satFixed = 1024 - (((Math.min(intensity, 100) * 1024) / 100) | 0);
-
+export function grayscaleJS(pixels) {
   for (let i = 0; i < pixels.length; i += 4) {
     const luma = rgbToLuma(pixels[i], pixels[i + 1], pixels[i + 2]);
-    pixels[i] = blend(pixels[i], luma, satFixed);
-    pixels[i + 1] = blend(pixels[i + 1], luma, satFixed);
-    pixels[i + 2] = blend(pixels[i + 2], luma, satFixed);
+    pixels[i] = luma;
+    pixels[i + 1] = luma;
+    pixels[i + 2] = luma;
   }
 }
