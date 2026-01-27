@@ -1,0 +1,15 @@
+{
+  "name": "image-filter-js-wasm-benchmark",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "image_filter_js_wasm_benchmark_bg.wasm",
+    "image_filter_js_wasm_benchmark.js",
+    "image_filter_js_wasm_benchmark.d.ts"
+  ],
+  "main": "image_filter_js_wasm_benchmark.js",
+  "types": "image_filter_js_wasm_benchmark.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

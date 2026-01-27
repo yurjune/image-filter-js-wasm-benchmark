@@ -1,9 +1,9 @@
 import init, {
   grayscale_wasm,
   sepia_wasm,
-} from "../pkg/image_filter_js_wasm_benchmark.js";
-import { grayscaleJS } from "../js-filters/grayscale.js";
-import { sepiaJS } from "../js-filters/sepia.js";
+} from "./pkg/image_filter_js_wasm_benchmark.js";
+import { grayscaleJS } from "./js-filters/grayscale.js";
+import { sepiaJS } from "./js-filters/sepia.js";
 
 let currentFilter = "grayscale";
 let originalImageData = null;
@@ -15,7 +15,7 @@ const ctxWASM = canvasWASM.getContext("2d");
 
 // Load image
 const img = new Image();
-img.src = "../assets/image.jpg";
+img.src = "./assets/image.jpg";
 img.onload = () => {
   canvasJS.width = canvasWASM.width = img.width;
   canvasJS.height = canvasWASM.height = img.height;
