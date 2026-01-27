@@ -2,22 +2,39 @@
 
 /**
  * @param {Uint8Array} pixels
- * @param {number} intensity
+ * @param {number} contrast
  */
-export function grayscale_wasm(pixels, intensity) {
+export function contrast_wasm(pixels, contrast) {
     var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
     var len0 = WASM_VECTOR_LEN;
-    wasm.grayscale_wasm(ptr0, len0, pixels, intensity);
+    wasm.contrast_wasm(ptr0, len0, pixels, contrast);
 }
 
 /**
  * @param {Uint8Array} pixels
- * @param {number} intensity
  */
-export function sepia_wasm(pixels, intensity) {
+export function grayscale_wasm(pixels) {
     var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
     var len0 = WASM_VECTOR_LEN;
-    wasm.sepia_wasm(ptr0, len0, pixels, intensity);
+    wasm.grayscale_wasm(ptr0, len0, pixels);
+}
+
+/**
+ * @param {Uint8Array} pixels
+ */
+export function invert_wasm(pixels) {
+    var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
+    var len0 = WASM_VECTOR_LEN;
+    wasm.invert_wasm(ptr0, len0, pixels);
+}
+
+/**
+ * @param {Uint8Array} pixels
+ */
+export function sepia_wasm(pixels) {
+    var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
+    var len0 = WASM_VECTOR_LEN;
+    wasm.sepia_wasm(ptr0, len0, pixels);
 }
 
 function __wbg_get_imports() {

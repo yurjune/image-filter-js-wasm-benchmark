@@ -1,9 +1,13 @@
 import init, {
   grayscale_wasm,
   sepia_wasm,
+  invert_wasm,
+  contrast_wasm,
 } from "./pkg/image_filter_js_wasm_benchmark.js";
 import { grayscaleJS } from "./js-filters/grayscale.js";
 import { sepiaJS } from "./js-filters/sepia.js";
+import { invertJS } from "./js-filters/invert.js";
+import { contrastJS } from "./js-filters/contrast.js";
 
 let currentFilter = "grayscale";
 let originalImageData = null;
@@ -40,17 +44,39 @@ function resetCanvasAndBenchmark() {
 // Filter selection
 const grayscaleBtn = document.getElementById("grayscale-btn");
 const sepiaBtn = document.getElementById("sepia-btn");
+const invertBtn = document.getElementById("invert-btn");
+const contrastBtn = document.getElementById("contrast-btn");
 
 grayscaleBtn.onclick = () => {
   currentFilter = "grayscale";
   grayscaleBtn.classList.add("active");
   sepiaBtn.classList.remove("active");
+  invertBtn.classList.remove("active");
+  contrastBtn.classList.remove("active");
   resetCanvasAndBenchmark();
 };
 sepiaBtn.onclick = () => {
   currentFilter = "sepia";
   sepiaBtn.classList.add("active");
   grayscaleBtn.classList.remove("active");
+  invertBtn.classList.remove("active");
+  contrastBtn.classList.remove("active");
+  resetCanvasAndBenchmark();
+};
+invertBtn.onclick = () => {
+  currentFilter = "invert";
+  invertBtn.classList.add("active");
+  grayscaleBtn.classList.remove("active");
+  sepiaBtn.classList.remove("active");
+  contrastBtn.classList.remove("active");
+  resetCanvasAndBenchmark();
+};
+contrastBtn.onclick = () => {
+  currentFilter = "contrast";
+  contrastBtn.classList.add("active");
+  grayscaleBtn.classList.remove("active");
+  sepiaBtn.classList.remove("active");
+  invertBtn.classList.remove("active");
   resetCanvasAndBenchmark();
 };
 
@@ -67,18 +93,26 @@ document.getElementById("start-btn").onclick = async () => {
   // JS test
   const jsStart = performance.now();
   if (currentFilter === "grayscale") {
-    grayscaleJS(jsData, 100);
+    grayscaleJS(jsData);
+  } else if (currentFilter === "sepia") {
+    sepiaJS(jsData);
+  } else if (currentFilter === "invert") {
+    invertJS(jsData);
   } else {
-    sepiaJS(jsData, 100);
+    contrastJS(jsData, 100);
   }
   const jsTime = performance.now() - jsStart;
 
   // WASM test
   const wasmStart = performance.now();
   if (currentFilter === "grayscale") {
-    grayscale_wasm(wasmData, 100);
+    grayscale_wasm(wasmData);
+  } else if (currentFilter === "sepia") {
+    sepia_wasm(wasmData);
+  } else if (currentFilter === "invert") {
+    invert_wasm(wasmData);
   } else {
-    sepia_wasm(wasmData, 100);
+    contrast_wasm(wasmData, 100);
   }
   const wasmTime = performance.now() - wasmStart;
 
