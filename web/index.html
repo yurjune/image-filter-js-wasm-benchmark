@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Filter Benchmark</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="sidebar">
+      <div id="sidebar-title">JS vs WASM</div>
+      <div id="sidebar-image-desc">Img: 4032 x 3024</div>
+      <button id="grayscale-btn" class="active">Grayscale</button>
+      <button id="sepia-btn">Sepia</button>
+      <a
+        id="sidebar-github"
+        href="https://github.com/yurjune/image-filter-js-wasm-benchmark"
+        target="_blank"
+        >View Github</a
+      >
+    </div>
+
+    <div id="main">
+      <div id="controls">
+        <div id="button-group">
+          <button id="start-btn">Start</button>
+          <button id="reset-btn">Reset</button>
+        </div>
+        <div><span class="label">JS:</span> <span id="js-time"></span></div>
+        <div><span class="label">WASM:</span> <span id="wasm-time"></span></div>
+      </div>
+
+      <div id="canvas-container">
+        <div class="canvas-wrapper">
+          <div>JS</div>
+          <canvas id="canvas-js"></canvas>
+        </div>
+        <div class="canvas-wrapper">
+          <div>WASM</div>
+          <canvas id="canvas-wasm"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
