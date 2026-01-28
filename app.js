@@ -41,6 +41,13 @@ function resetCanvasAndBenchmark() {
   }
 }
 
+function resetAllActiveState() {
+  grayscaleBtn.classList.remove("active");
+  sepiaBtn.classList.remove("active");
+  invertBtn.classList.remove("active");
+  contrastBtn.classList.remove("active");
+}
+
 // Filter selection
 const grayscaleBtn = document.getElementById("grayscale-btn");
 const sepiaBtn = document.getElementById("sepia-btn");
@@ -48,35 +55,27 @@ const invertBtn = document.getElementById("invert-btn");
 const contrastBtn = document.getElementById("contrast-btn");
 
 grayscaleBtn.onclick = () => {
+  resetAllActiveState();
   currentFilter = "grayscale";
   grayscaleBtn.classList.add("active");
-  sepiaBtn.classList.remove("active");
-  invertBtn.classList.remove("active");
-  contrastBtn.classList.remove("active");
   resetCanvasAndBenchmark();
 };
 sepiaBtn.onclick = () => {
+  resetAllActiveState();
   currentFilter = "sepia";
   sepiaBtn.classList.add("active");
-  grayscaleBtn.classList.remove("active");
-  invertBtn.classList.remove("active");
-  contrastBtn.classList.remove("active");
   resetCanvasAndBenchmark();
 };
 invertBtn.onclick = () => {
+  resetAllActiveState();
   currentFilter = "invert";
   invertBtn.classList.add("active");
-  grayscaleBtn.classList.remove("active");
-  sepiaBtn.classList.remove("active");
-  contrastBtn.classList.remove("active");
   resetCanvasAndBenchmark();
 };
 contrastBtn.onclick = () => {
+  resetAllActiveState();
   currentFilter = "contrast";
   contrastBtn.classList.add("active");
-  grayscaleBtn.classList.remove("active");
-  sepiaBtn.classList.remove("active");
-  invertBtn.classList.remove("active");
   resetCanvasAndBenchmark();
 };
 
