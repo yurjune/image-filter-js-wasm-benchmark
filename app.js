@@ -11,6 +11,11 @@ import { invertJS } from "./js-filters/invert.js";
 import { contrastJS } from "./js-filters/contrast.js";
 import { gaussianBlurJS } from "./js-filters/blur.js";
 
+// Initialize WASM when DOM is ready
+document.addEventListener("DOMContentLoaded", async () => {
+  await init();
+});
+
 let currentFilter = "grayscale";
 let originalImageData = null;
 
@@ -94,8 +99,6 @@ document.getElementById("reset-btn").onclick = () => {
 };
 
 document.getElementById("start-btn").onclick = async () => {
-  await init();
-
   const jsData = new Uint8ClampedArray(originalImageData.data);
   const wasmData = new Uint8ClampedArray(originalImageData.data);
 
