@@ -73,6 +73,7 @@ body {
   padding-bottom: 8px;
 }
 #start-btn,
+#running-btn,
 #reset-btn {
   padding: 8px 16px;
   font-size: 14px;
@@ -83,7 +84,8 @@ body {
   cursor: pointer;
   margin-right: 4px;
 }
-#start-btn {
+#start-btn,
+#running-btn {
   background: #27ae60;
 }
 #reset-btn {
