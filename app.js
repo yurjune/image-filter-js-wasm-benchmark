@@ -14,6 +14,13 @@ import { gaussianBlurJS } from "./js-filters/blur.js";
 // Initialize WASM when DOM is ready
 document.addEventListener("DOMContentLoaded", async () => {
   await init();
+  const mockData = new Uint8ClampedArray(500000);
+  grayscale_wasm(mockData);
+  sepia_wasm(mockData);
+  invert_wasm(mockData);
+  contrast_wasm(mockData, 100);
+  gaussian_blur_wasm(new Uint8ClampedArray(2500), 25, 25);
+  console.log("warmed up");
 });
 
 let currentFilter = "grayscale";
