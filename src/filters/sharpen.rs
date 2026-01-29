@@ -1,8 +1,12 @@
 use wasm_bindgen::prelude::wasm_bindgen;
 
-// Sharpen kernel (3x3 Laplacian): center weight = 9, neighbors = -1
-// Total sum = 9 + (-1 * 8) = 1 (normalized)
-const KERNEL: [i32; 9] = [-1, -1, -1, -1, 9, -1, -1, -1, -1];
+// Sharpen kernel (5x5 Laplacian): center weight = 25, neighbors = -1
+// Total sum = 25 + (-1 * 24) = 1 (normalized)
+const KERNEL: [i32; 25] = [
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1,
+];
+const KERNEL_SIZE: usize = 5;
 
 #[wasm_bindgen]
 pub fn sharpen_wasm(pixels: &mut [u8], width: u32, height: u32) {
@@ -18,16 +22,16 @@ pub fn sharpen_wasm(pixels: &mut [u8], width: u32, height: u32) {
             let mut g_sum = 0i32;
             let mut b_sum = 0i32;
 
-            for ky in 0..3 {
-                for kx in 0..3 {
-                    let offset_y = y as isize + ky as isize - 1;
-                    let offset_x = x as isize + kx as isize - 1;
+            for ky in 0..KERNEL_SIZE {
+                for kx in 0..KERNEL_SIZE {
+                    let offset_y = y as isize + ky as isize - 2;
+                    let offset_x = x as isize + kx as isize - 2;
 
                     let sample_y = offset_y.clamp(0, height as isize - 1) as usize;
                     let sample_x = offset_x.clamp(0, width as isize - 1) as usize;
 
                     let src_idx = (sample_y * width + sample_x) * 4;
-                    let kernel_idx = ky * 3 + kx;
+                    let kernel_idx = ky * KERNEL_SIZE + kx;
                     let weight = KERNEL[kernel_idx];
 
                     r_sum += buf[src_idx] as i32 * weight;

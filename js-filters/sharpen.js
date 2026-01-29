@@ -1,6 +1,10 @@
-// Sharpen kernel (3x3 Laplacian): center weight = 9, neighbors = -1
-// Total sum = 9 + (-1 * 8) = 1 (normalized)
-const KERNEL = [-1, -1, -1, -1, 9, -1, -1, -1, -1];
+// Sharpen kernel (5x5 Laplacian): center weight = 25, neighbors = -1
+// Total sum = 25 + (-1 * 24) = 1 (normalized)
+const KERNEL = [
+  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1,
+];
+const KERNEL_SIZE = 5;
 
 export function sharpenJS(pixels, width, height) {
   const buf = new Uint8Array(pixels);
@@ -11,16 +15,16 @@ export function sharpenJS(pixels, width, height) {
       let gSum = 0;
       let bSum = 0;
 
-      for (let ky = 0; ky < 3; ky++) {
-        for (let kx = 0; kx < 3; kx++) {
-          const offsetY = y + ky - 1;
-          const offsetX = x + kx - 1;
+      for (let ky = 0; ky < KERNEL_SIZE; ky++) {
+        for (let kx = 0; kx < KERNEL_SIZE; kx++) {
+          const offsetY = y + ky - 2;
+          const offsetX = x + kx - 2;
 
           const sampleY = Math.max(0, Math.min(height - 1, offsetY));
           const sampleX = Math.max(0, Math.min(width - 1, offsetX));
 
           const srcIdx = (sampleY * width + sampleX) * 4;
-          const kernelIdx = ky * 3 + kx;
+          const kernelIdx = ky * KERNEL_SIZE + kx;
           const weight = KERNEL[kernelIdx];
 
           rSum += buf[srcIdx] * weight;
