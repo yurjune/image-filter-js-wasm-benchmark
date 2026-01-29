@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export function contrast_wasm(pixels: Uint8Array, contrast: number): void;
+export function contrast_wasm(pixels: Uint8Array): void;
 
 export function emboss_wasm(pixels: Uint8Array, width: number, height: number): void;
 
@@ -17,12 +17,12 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
-    readonly contrast_wasm: (a: number, b: number, c: any, d: number) => void;
+    readonly contrast_wasm: (a: number, b: number, c: any) => void;
     readonly emboss_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
-    readonly sharpen_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
-    readonly gaussian_blur_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
     readonly grayscale_wasm: (a: number, b: number, c: any) => void;
     readonly sepia_wasm: (a: number, b: number, c: any) => void;
+    readonly sharpen_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
+    readonly gaussian_blur_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
     readonly __wbindgen_externrefs: WebAssembly.Table;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_start: () => void;

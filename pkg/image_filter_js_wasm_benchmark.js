@@ -2,12 +2,11 @@
 
 /**
  * @param {Uint8Array} pixels
- * @param {number} contrast
  */
-export function contrast_wasm(pixels, contrast) {
+export function contrast_wasm(pixels) {
     var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
     var len0 = WASM_VECTOR_LEN;
-    wasm.contrast_wasm(ptr0, len0, pixels, contrast);
+    wasm.contrast_wasm(ptr0, len0, pixels);
 }
 
 /**
