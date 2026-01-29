@@ -33,19 +33,21 @@ export function grayscale_wasm(pixels) {
 /**
  * @param {Uint8Array} pixels
  */
-export function invert_wasm(pixels) {
-    var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
-    var len0 = WASM_VECTOR_LEN;
-    wasm.invert_wasm(ptr0, len0, pixels);
-}
-
-/**
- * @param {Uint8Array} pixels
- */
 export function sepia_wasm(pixels) {
     var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
     var len0 = WASM_VECTOR_LEN;
     wasm.sepia_wasm(ptr0, len0, pixels);
+}
+
+/**
+ * @param {Uint8Array} pixels
+ * @param {number} width
+ * @param {number} height
+ */
+export function sharpen_wasm(pixels, width, height) {
+    var ptr0 = passArray8ToWasm0(pixels, wasm.__wbindgen_malloc);
+    var len0 = WASM_VECTOR_LEN;
+    wasm.sharpen_wasm(ptr0, len0, pixels, width, height);
 }
 
 function __wbg_get_imports() {

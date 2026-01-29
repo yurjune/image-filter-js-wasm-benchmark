@@ -7,9 +7,9 @@ export function gaussian_blur_wasm(pixels: Uint8Array, width: number, height: nu
 
 export function grayscale_wasm(pixels: Uint8Array): void;
 
-export function invert_wasm(pixels: Uint8Array): void;
-
 export function sepia_wasm(pixels: Uint8Array): void;
+
+export function sharpen_wasm(pixels: Uint8Array, width: number, height: number): void;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
@@ -17,8 +17,8 @@ export interface InitOutput {
     readonly memory: WebAssembly.Memory;
     readonly contrast_wasm: (a: number, b: number, c: any, d: number) => void;
     readonly gaussian_blur_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
+    readonly sharpen_wasm: (a: number, b: number, c: any, d: number, e: number) => void;
     readonly grayscale_wasm: (a: number, b: number, c: any) => void;
-    readonly invert_wasm: (a: number, b: number, c: any) => void;
     readonly sepia_wasm: (a: number, b: number, c: any) => void;
     readonly __wbindgen_externrefs: WebAssembly.Table;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
