@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   emboss_wasm(new Uint8ClampedArray(10000), 50, 50);
   sharpen_wasm(new Uint8ClampedArray(10000), 50, 50);
-  gaussian_blur_wasm(new Uint8ClampedArray(2500), 25, 25);
+  gaussian_blur_wasm(new Uint8ClampedArray(40000), 100, 100);
 
   console.log("warmed up");
 });
