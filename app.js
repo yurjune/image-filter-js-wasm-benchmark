@@ -63,6 +63,11 @@ function resetAllActiveState() {
   blurBtn.classList.remove("active");
 }
 
+const startBtn = document.getElementById("start-btn");
+const resetBtn = document.getElementById("reset-btn");
+const jsTimeEl = document.getElementById("js-time");
+const wasmTimeEl = document.getElementById("wasm-time");
+
 // Filter selection
 const grayscaleBtn = document.getElementById("grayscale-btn");
 const sepiaBtn = document.getElementById("sepia-btn");
@@ -106,6 +111,16 @@ document.getElementById("reset-btn").onclick = () => {
 };
 
 document.getElementById("start-btn").onclick = async () => {
+  startBtn.disabled = true;
+  resetBtn.disabled = true;
+  jsTimeEl.className = "";
+  wasmTimeEl.className = "";
+  jsTimeEl.textContent = "Running...";
+  wasmTimeEl.textContent = "Running...";
+
+  // avoid ui update blocking
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
   const jsData = new Uint8ClampedArray(originalImageData.data);
   const wasmData = new Uint8ClampedArray(originalImageData.data);
 
@@ -140,9 +155,6 @@ document.getElementById("start-btn").onclick = async () => {
   const wasmTime = performance.now() - wasmStart;
 
   // Display results
-  const jsTimeEl = document.getElementById("js-time");
-  const wasmTimeEl = document.getElementById("wasm-time");
-
   jsTimeEl.textContent = jsTime.toFixed(2) + "ms";
   wasmTimeEl.textContent = wasmTime.toFixed(2) + "ms";
 
@@ -167,4 +179,10 @@ document.getElementById("start-btn").onclick = async () => {
 
   ctxJS.putImageData(jsImageData, 0, 0);
   ctxWASM.putImageData(wasmImageData, 0, 0);
+
+  // prevent reserved click event fire
+  setTimeout(() => {
+    startBtn.disabled = false;
+    resetBtn.disabled = false;
+  }, 0);
 };
