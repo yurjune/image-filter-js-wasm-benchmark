@@ -4,12 +4,14 @@ import init, {
   contrast_wasm,
   gaussian_blur_wasm,
   sharpen_wasm,
+  emboss_wasm,
 } from "./pkg/image_filter_js_wasm_benchmark.js";
 import { grayscaleJS } from "./js-filters/grayscale.js";
 import { sepiaJS } from "./js-filters/sepia.js";
 import { contrastJS } from "./js-filters/contrast.js";
 import { gaussianBlurJS } from "./js-filters/blur.js";
 import { sharpenJS } from "./js-filters/sharpen.js";
+import { embossJS } from "./js-filters/emboss.js";
 
 // Initialize WASM when DOM is ready
 document.addEventListener("DOMContentLoaded", async () => {
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   sepia_wasm(mockData);
   contrast_wasm(mockData, 100);
 
+  emboss_wasm(new Uint8ClampedArray(10000), 50, 50);
   sharpen_wasm(new Uint8ClampedArray(10000), 50, 50);
   gaussian_blur_wasm(new Uint8ClampedArray(2500), 25, 25);
 
@@ -58,14 +61,6 @@ function resetCanvasAndBenchmark() {
   }
 }
 
-function resetAllActiveState() {
-  grayscaleBtn.classList.remove("active");
-  sepiaBtn.classList.remove("active");
-  contrastBtn.classList.remove("active");
-  sharpenBtn.classList.remove("active");
-  blurBtn.classList.remove("active");
-}
-
 const startBtn = document.getElementById("start-btn");
 const resetBtn = document.getElementById("reset-btn");
 const jsTimeEl = document.getElementById("js-time");
@@ -75,8 +70,18 @@ const wasmTimeEl = document.getElementById("wasm-time");
 const grayscaleBtn = document.getElementById("grayscale-btn");
 const sepiaBtn = document.getElementById("sepia-btn");
 const contrastBtn = document.getElementById("contrast-btn");
+const embossBtn = document.getElementById("emboss-btn");
 const sharpenBtn = document.getElementById("sharpen-btn");
 const blurBtn = document.getElementById("blur-btn");
+
+function resetAllActiveState() {
+  grayscaleBtn.classList.remove("active");
+  sepiaBtn.classList.remove("active");
+  contrastBtn.classList.remove("active");
+  embossBtn.classList.remove("active");
+  sharpenBtn.classList.remove("active");
+  blurBtn.classList.remove("active");
+}
 
 grayscaleBtn.onclick = () => {
   resetAllActiveState();
@@ -94,6 +99,12 @@ contrastBtn.onclick = () => {
   resetAllActiveState();
   currentFilter = "contrast";
   contrastBtn.classList.add("active");
+  resetCanvasAndBenchmark();
+};
+embossBtn.onclick = () => {
+  resetAllActiveState();
+  currentFilter = "emboss";
+  embossBtn.classList.add("active");
   resetCanvasAndBenchmark();
 };
 sharpenBtn.onclick = () => {
@@ -135,6 +146,8 @@ document.getElementById("start-btn").onclick = async () => {
     sepiaJS(jsData);
   } else if (currentFilter === "contrast") {
     contrastJS(jsData, 100);
+  } else if (currentFilter === "emboss") {
+    embossJS(jsData, canvasJS.width, canvasJS.height);
   } else if (currentFilter === "sharpen") {
     sharpenJS(jsData, canvasJS.width, canvasJS.height);
   } else if (currentFilter === "blur") {
@@ -150,6 +163,8 @@ document.getElementById("start-btn").onclick = async () => {
     sepia_wasm(wasmData);
   } else if (currentFilter === "contrast") {
     contrast_wasm(wasmData, 100);
+  } else if (currentFilter === "emboss") {
+    emboss_wasm(wasmData, canvasWASM.width, canvasWASM.height);
   } else if (currentFilter === "sharpen") {
     sharpen_wasm(wasmData, canvasWASM.width, canvasWASM.height);
   } else if (currentFilter === "blur") {
