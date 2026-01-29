@@ -1,13 +1,11 @@
 import init, {
   grayscale_wasm,
   sepia_wasm,
-  invert_wasm,
   contrast_wasm,
   gaussian_blur_wasm,
 } from "./pkg/image_filter_js_wasm_benchmark.js";
 import { grayscaleJS } from "./js-filters/grayscale.js";
 import { sepiaJS } from "./js-filters/sepia.js";
-import { invertJS } from "./js-filters/invert.js";
 import { contrastJS } from "./js-filters/contrast.js";
 import { gaussianBlurJS } from "./js-filters/blur.js";
 
@@ -17,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const mockData = new Uint8ClampedArray(500000);
   grayscale_wasm(mockData);
   sepia_wasm(mockData);
-  invert_wasm(mockData);
   contrast_wasm(mockData, 100);
   gaussian_blur_wasm(new Uint8ClampedArray(2500), 25, 25);
   console.log("warmed up");
@@ -58,7 +55,6 @@ function resetCanvasAndBenchmark() {
 function resetAllActiveState() {
   grayscaleBtn.classList.remove("active");
   sepiaBtn.classList.remove("active");
-  invertBtn.classList.remove("active");
   contrastBtn.classList.remove("active");
   blurBtn.classList.remove("active");
 }
@@ -71,7 +67,6 @@ const wasmTimeEl = document.getElementById("wasm-time");
 // Filter selection
 const grayscaleBtn = document.getElementById("grayscale-btn");
 const sepiaBtn = document.getElementById("sepia-btn");
-const invertBtn = document.getElementById("invert-btn");
 const contrastBtn = document.getElementById("contrast-btn");
 const blurBtn = document.getElementById("blur-btn");
 
@@ -85,12 +80,6 @@ sepiaBtn.onclick = () => {
   resetAllActiveState();
   currentFilter = "sepia";
   sepiaBtn.classList.add("active");
-  resetCanvasAndBenchmark();
-};
-invertBtn.onclick = () => {
-  resetAllActiveState();
-  currentFilter = "invert";
-  invertBtn.classList.add("active");
   resetCanvasAndBenchmark();
 };
 contrastBtn.onclick = () => {
@@ -130,8 +119,6 @@ document.getElementById("start-btn").onclick = async () => {
     grayscaleJS(jsData);
   } else if (currentFilter === "sepia") {
     sepiaJS(jsData);
-  } else if (currentFilter === "invert") {
-    invertJS(jsData);
   } else if (currentFilter === "contrast") {
     contrastJS(jsData, 100);
   } else if (currentFilter === "blur") {
@@ -145,8 +132,6 @@ document.getElementById("start-btn").onclick = async () => {
     grayscale_wasm(wasmData);
   } else if (currentFilter === "sepia") {
     sepia_wasm(wasmData);
-  } else if (currentFilter === "invert") {
-    invert_wasm(wasmData);
   } else if (currentFilter === "contrast") {
     contrast_wasm(wasmData, 100);
   } else if (currentFilter === "blur") {
