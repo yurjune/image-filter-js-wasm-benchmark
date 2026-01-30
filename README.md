@@ -21,7 +21,7 @@ wasm-pack build --target web --release
 
 - [x] Grayscale
 - [x] Sepia
-- [x] Invert
 - [x] Contrast
-- [ ] Gaussian Blur
-- [ ] Sharpen
+- [x] Embossing 
+- [x] Gaussian Blur
+- [x] Sharpen
